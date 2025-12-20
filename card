@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Apodaca Greenhouse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --linen: #FAF9F6;
+            --botanical-green: #2D5016;
+            --botanical-green-light: #3D6B22;
+            --muted-gold: #B8956A;
+            --gold-light: #D4B896;
+            --shadow-soft: rgba(45, 80, 22, 0.08);
+            --shadow-medium: rgba(45, 80, 22, 0.15);
+            
+            --serif: 'Playfair Display', serif;
+            --sans: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--linen);
+            color: #2C2C2C;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            background: var(--linen);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(4rem, 12vw, 11rem);
+            color: var(--botanical-green);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            text-transform: lowercase;
+        }
+
+        .subtitle {
+            font-family: var(--sans);
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            color: #6B6B6B;
+            font-weight: 400;
+            margin-bottom: 5rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            width: 100%;
+            max-width: 1400px;
+            margin-top: 0;
+            background: var(--botanical-green);
+            border: 1px solid var(--botanical-green);
+        }
+
+        .greenhouse-card {
+            background: var(--linen);
+            padding: 4rem 3rem;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .greenhouse-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .greenhouse-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 80, 22, 0.75);
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        /* Navigator Card - Peonies */
+        .greenhouse-card:nth-child(1)::before {
+            background-image: url('https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=1200&q=85');
+        }
+
+        /* Author Card - Ranunculus */
+        .greenhouse-card:nth-child(2)::before {
+            background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1200&q=85');
+        }
+
+        /* Specialist Card - Lavender Fields */
+        .greenhouse-card:nth-child(3)::before {
+            background-image: url('https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1200&q=85');
+        }
+
+        /* Anchor Card - White Lotus */
+        .greenhouse-card:nth-child(4)::before {
+            background-image: url('https://images.unsplash.com/photo-1508923567004-3a6b8004f3d7?w=1200&q=85');
+        }
+
+        .greenhouse-card:hover::before,
+        .greenhouse-card:hover::after {
+            opacity: 1;
+        }
+
+        .greenhouse-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .greenhouse-card:hover .card-title,
+        .greenhouse-card:hover .card-tagline,
+        .greenhouse-card:hover .card-description,
+        .greenhouse-card:hover .card-icon {
+            color: white;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            display: block;
+            transition: color 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            color: var(--botanical-green);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-tagline {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            color: var(--muted-gold);
+            font-style: normal;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-description {
+            font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+            color: #5A5A5A;
+            line-height: 1.6;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Detail View */
+        .detail-view {
+            display: none;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .detail-header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--botanical-green);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-family: var(--sans);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            min-height: 56px;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            background: var(--botanical-green-light);
+            transform: translateX(-4px);
+            box-shadow: 4px 4px 20px var(--shadow-medium);
+        }
+
+        .detail-title {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--botanical-green);
+            margin-bottom: 1rem;
+        }
+
+        .detail-tagline {
+            font-size: 1.5rem;
+            color: var(--muted-gold);
+            font-style: italic;
+        }
+
+        .content-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2.5rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            border-left: 4px solid var(--botanical-green);
+        }
+
+        .content-card h3 {
+            font-family: var(--serif);
+            font-size: 1.875rem;
+            color: var(--botanical-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-card p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #4A4A4A;
+            margin-bottom: 1rem;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .countdown-block {
+            background: linear-gradient(135deg, var(--linen) 0%, #F0EDE5 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid var(--gold-light);
+        }
+
+        .countdown-number {
+            font-family: var(--serif);
+            font-size: 3rem;
+            color: var(--botanical-green);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 1.125rem;
+            color: var(--muted-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* Prompt Display */
+        .prompt-box {
+            background: linear-gradient(135deg, #FFFEF8 0%, var(--linen) 100%);
+            border: 2px solid var(--muted-gold);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .prompt-box::before {
+            content: '"';
+            font-family: var(--serif);
+            font-size: 6rem;
+            color: var(--gold-light);
+            position: absolute;
+            top: -1rem;
+            left: 1.5rem;
+            line-height: 1;
+        }
+
+        .prompt-text {
+            font-family: var(--serif);
+            font-size: 1.75rem;
+            color: var(--botanical-green);
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-button {
+            background: var(--muted-gold);
+            color: white;
+            border: none;
+            padding: 1.25rem 2.5rem;
+            font-size: 1.25rem;
+            font-family: var(--sans);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            min-height: 56px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(184, 149, 106, 0.3);
+        }
+
+        .action-button:hover {
+            background: var(--botanical-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(45, 80, 22, 0.4);
+        }
+
+        /* Affirmation Rotation */
+        .affirmation {
+            background: var(--botanical-green);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 8px 30px var(--shadow-medium);
+        }
+
+        .affirmation-text {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Resource Links */
+        .resource-list {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-item {
+            background: var(--linen);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--muted-gold);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px var(--shadow-soft);
+        }
+
+        .resource-title {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            color: var(--botanical-green);
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-description {
+            font-size: 1.125rem;
+            color: #5A5A5A;
+            line-height: 1.7;
+        }
+
+        .resource-type {
+            display: inline-block;
+            background: var(--muted-gold);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Accessibility Enhancements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            .greenhouse-card {
+                border: 3px solid var(--botanical-green);
+            }
+            .content-card {
+                border-left-width: 6px;
+            }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1px;
+            }
+
+            .greenhouse-card {
+                padding: 3rem 2rem;
+                min-height: 350px;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Focus Styles for Keyboard Navigation */
+        button:focus-visible,
+        .greenhouse-card:focus-visible {
+            outline: 3px solid var(--botanical-green);
+            outline-offset: 4px;
+        }
+
+        /* Link Styles */
+        .resource-title a {
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .resource-title a:hover {
+            color: var(--muted-gold) !important;
+            text-decoration: underline !important;
+        }
+
+        .resource-title a:focus-visible {
+            outline: 2px solid var(--botanical-green);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero/Garden View -->
+    <section id="garden" class="hero">
+        <div class="hero-content">
+            <h1>the greenhouse</h1>
+            <p class="subtitle">Joy · Wisdom · Growth · Connection</p>
+            
+            <div class="cards-container">
+                <div class="greenhouse-card" onclick="showDetail('navigator')" tabindex="0" role="button" aria-label="Visit The Navigator's space">
+                    <div>
+                        <span class="card-icon">✦</span>
+                        <h2 class="card-title">The Navigator</h2>
+                        <p class="card-tagline">From Launcher to Explorer</p>
+                    </div>
+                    <p class="card-description">Your next chapter awaits with grace, wisdom, and self-discovery.</p>
+                </div>
+
+                <div class="greenhouse-card" onclick="showDetail('author')" tabindex="0" role="button" aria-label="Visit The Author's space">
+                    <div>
+                        <span class="card-icon">✒</span>
+                        <h2 class="card-title">The Author</h2>
+                        <p class="card-tagline">The Wisdom Years</p>
+                    </div>
+                    <p class="card-description">Your legacy continues through stories, teaching, and connection.</p>
+                </div>
+
+                <div class="greenhouse-card" onclick="showDetail('specialist')" tabindex="0" role="button" aria-label="Visit The Specialist's space">
+                    <div>
+                        <span class="card-icon">✾</span>
+                        <h2 class="card-title">The Specialist</h2>
+                        <p class="card-tagline">From Teacher to Entrepreneur</p>
+                    </div>
+                    <p class="card-description">Your lifelong expertise becomes your kingdom work and calling.</p>
+                </div>
+
+                <div class="greenhouse-card" onclick="showDetail('anchor')" tabindex="0" role="button" aria-label="Visit The Anchor's space">
+                    <div>
+                        <span class="card-icon">⚓︎</span>
+                        <h2 class="card-title">The Anchor</h2>
+                        <p class="card-tagline">Finding Peace in the Storm</p>
+                    </div>
+                    <p class="card-description">A sanctuary from the noise—renew your curiosity, rediscover wonder.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigator Detail View -->
+    <section id="navigator" class="detail-view">
+        <div class="detail-header">
+            <button class="back-button" onclick="showGarden()" aria-label="Return to garden">
+                ← Back to Garden
+            </button>
+            <h2 class="detail-title">The Navigator</h2>
+            <p class="detail-tagline">From Launcher to Explorer</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- England Countdown -->
+            <div class="content-card">
+                <h3>Days Until Joaquin's High School Graduation</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-block">
+                        <span class="countdown-number" id="days">---</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-block">
+                        <span class="countdown-number" id="hours">--</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-block">
+                        <span class="countdown-number" id="minutes">--</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-block">
+                        <span class="countdown-number" id="seconds">--</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-size: 1.125rem; color: #7A7A7A; font-style: italic;">Newcastle adventure timeline to be determined ✨</p>
+            </div>
+
+            <!-- Daily Affirmation -->
+            <div class="affirmation">
+                <p class="affirmation-text" id="affirmation-text">Your worth isn't measured by your to-do list</p>
+            </div>
+
+            <!-- Weekly Reflection Prompt -->
+            <div class="content-card">
+                <h3>This Week's Reflection</h3>
+                <div class="prompt-box">
+                    <p class="prompt-text" id="reflection-prompt">What would you do with a Saturday if no one needed you?</p>
+                </div>
+                <button class="action-button" onclick="nextReflection()">Next Prompt</button>
+            </div>
+
+            <!-- Empty Nest Resources -->
+            <div class="content-card">
+                <h3>Your Next Chapter Awaits</h3>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Podcast</span>
+                        <h4 class="resource-title"><a href="https://podcasts.apple.com/us/podcast/dare-on/id1445847524" target="_blank" style="color: var(--botanical-green); text-decoration: none;">Dare On with Jodi Silverman</a></h4>
+                        <p class="resource-description">From over-scheduled mom to inspired woman. A lifeline for parents navigating the "what now?" of empty nesting.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Book</span>
+                        <h4 class="resource-title"><a href="https://www.goodreads.com/book/show/60784622-daughter-lessons" target="_blank" style="color: var(--botanical-green); text-decoration: none;">Daughter Lessons by Bernadette Catalana</a></h4>
+                        <p class="resource-description">"What happens when they don't need you the way they used to?" Gentle, funny, deeply relatable soul-searching.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Watch</span>
+                        <h4 class="resource-title"><a href="https://tv.apple.com/us/show/shrinking/umc.cmc.3s4mgg2y7h95ff47fdvxv6j2r" target="_blank" style="color: var(--botanical-green); text-decoration: none;">Shrinking (Apple TV+)</a></h4>
+                        <p class="resource-description">Laughter in the letting go. A heartfelt comedy about grief, family, and moving forward.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Detail View -->
+    <section id="author" class="detail-view">
+        <div class="detail-header">
+            <button class="back-button" onclick="showGarden()" aria-label="Return to garden">
+                ← Back to Garden
+            </button>
+            <h2 class="detail-title">The Author</h2>
+            <p class="detail-tagline">The Wisdom Years</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Writing Prompt Generator -->
+            <div class="content-card">
+                <h3>Today's Teaching Story Prompt</h3>
+                <div class="prompt-box">
+                    <p class="prompt-text" id="writing-prompt">What's one teaching strategy you pioneered that you've never seen in a textbook?</p>
+                </div>
+                <button class="action-button" onclick="nextWritingPrompt()">New Prompt</button>
+            </div>
+
+            <!-- Crystallized Intelligence Daily Focus -->
+            <div class="affirmation">
+                <p class="affirmation-text" id="intelligence-focus">Pattern Recognition — You see what works because you've seen it 1,000 times</p>
+            </div>
+
+            <!-- Legacy Connection Hub -->
+            <div class="content-card">
+                <h3>Your Bay Area Bridge</h3>
+                <p>Stay connected with family through shared stories and memories.</p>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Tool</span>
+                        <h4 class="resource-title"><a href="https://www.storyworth.com/" target="_blank" style="color: var(--botanical-green); text-decoration: none;">StoryWorth</a></h4>
+                        <p class="resource-description">Weekly email prompts to record your life stories, compiled into a beautiful hardcover book. A low-pressure way to activate your writing muscles while staying connected.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- From Strength to Strength Corner -->
+            <div class="content-card">
+                <h3>From Strength to Strength</h3>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Book</span>
+                        <h4 class="resource-title"><a href="https://www.goodreads.com/book/show/58505388-from-strength-to-strength" target="_blank" style="color: var(--botanical-green); text-decoration: none;">From Strength to Strength by Arthur C. Brooks</a></h4>
+                        <p class="resource-description">Transitioning from "fluid intelligence" (the fast-paced work of your youth) to "crystallized intelligence" (the wisdom and teaching of your later years).</p>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-size: 1.25rem; color: #4A4A4A; font-style: italic;">"Great books aren't written quickly. They're written consistently."</p>
+            </div>
+
+            <!-- Growing Bolder Podcast -->
+            <div class="content-card">
+                <h3>Meet Another 80+ Trailblazer</h3>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Podcast</span>
+                        <h4 class="resource-title"><a href="https://www.growingbolder.com/podcast/" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Growing Bolder Podcast</a></h4>
+                        <p class="resource-description">Rebranding aging as a time of "passion and perseverance." Features 80+ guests starting new projects—you're not alone in your ambitions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loneliness Antidote -->
+            <div class="content-card">
+                <h3>You're Not Alone in This</h3>
+                <p style="font-size: 1.25rem; margin-bottom: 1.5rem;">Georgia O'Keeffe created some of her most celebrated work in her 80s. Toni Morrison published her final novel at 84. Your creative journey continues.</p>
+                <p style="font-size: 1.125rem; color: #7A7A7A;">Consider joining a senior writing community or setting a weekly "virtual writing group" time for accountability and connection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialist Detail View -->
+    <section id="specialist" class="detail-view">
+        <div class="detail-header">
+            <button class="back-button" onclick="showGarden()" aria-label="Return to garden">
+                ← Back to Garden
+            </button>
+            <h2 class="detail-title">The Specialist</h2>
+            <p class="detail-tagline">From Teacher to Entrepreneur</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Faith-Integrated Daily Encouragement -->
+            <div class="affirmation">
+                <p class="affirmation-text" id="scripture-text">"For I know the plans I have for you... plans to prosper you and not to harm you, plans to give you hope and a future." — Jeremiah 29:11</p>
+            </div>
+
+            <!-- Business Launch Milestone Tracker -->
+            <div class="content-card">
+                <h3>Your Reading Specialist Journey</h3>
+                <div class="resource-list">
+                    <div class="resource-item" style="border-left-color: var(--botanical-green); opacity: 0.5;">
+                        <h4 class="resource-title">✓ Define Your Mission</h4>
+                        <p class="resource-description">Complete: You know your calling is literacy with purpose.</p>
+                    </div>
+                    <div class="resource-item" style="border-left-color: var(--botanical-green); opacity: 0.5;">
+                        <h4 class="resource-title">✓ Research Business Structure</h4>
+                        <p class="resource-description">Complete: Understanding your options and next steps.</p>
+                    </div>
+                    <div class="resource-item" style="border-left-color: var(--muted-gold);">
+                        <h4 class="resource-title">→ Current: Develop Service Offerings</h4>
+                        <p class="resource-description">What specific reading services will you provide? Tutoring? Assessment? Curriculum design?</p>
+                    </div>
+                    <div class="resource-item" style="opacity: 0.4;">
+                        <h4 class="resource-title">○ Create Pricing Model</h4>
+                        <p class="resource-description">Upcoming: Value-based pricing that honors your expertise.</p>
+                    </div>
+                    <div class="resource-item" style="opacity: 0.4;">
+                        <h4 class="resource-title">○ Design Marketing Materials</h4>
+                        <p class="resource-description">Upcoming: Share your story and services with clarity.</p>
+                    </div>
+                    <div class="resource-item" style="opacity: 0.4;">
+                        <h4 class="resource-title">○ Launch Date: Set & Celebrate</h4>
+                        <p class="resource-description">Upcoming: Your new chapter begins!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Business Prompt -->
+            <div class="content-card">
+                <h3>This Week's Entrepreneurial Question</h3>
+                <div class="prompt-box">
+                    <p class="prompt-text" id="business-prompt">What unique gift do you bring to literacy education that only YOU can offer?</p>
+                </div>
+                <button class="action-button" onclick="nextBusinessPrompt()">Next Prompt</button>
+            </div>
+
+            <!-- Expertise Affirmation -->
+            <div class="content-card">
+                <h3>Your Lifelong Skills Matter</h3>
+                <p style="font-family: var(--serif); font-size: 1.75rem; color: var(--botanical-green); font-style: italic; margin: 1.5rem 0;" id="expertise-affirmation">Decades of classroom wisdom = entrepreneurial advantage</p>
+            </div>
+
+            <!-- Entrepreneurial Wisdom Hub -->
+            <div class="content-card">
+                <h3>Building Your Reading Practice</h3>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Podcast</span>
+                        <h4 class="resource-title"><a href="https://cathyheller.com/podcast/" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Cathy Heller Show</a></h4>
+                        <p class="resource-description">"Your purpose is the profit." Uplifting guidance for women starting second acts, with spiritual wisdom on finding your calling.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Book</span>
+                        <h4 class="resource-title"><a href="https://www.goodreads.com/book/show/40642458-the-second-mountain" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Second Mountain by David Brooks</a></h4>
+                        <p class="resource-description">"The first mountain is about building your ego. The second is about shedding it." Perfect for transitioning from career to service-based calling.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Tool</span>
+                        <h4 class="resource-title"><a href="https://emilypfreeman.com/book/the-next-right-thing/" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Next Right Step by Emily P. Freeman</a></h4>
+                        <p class="resource-description">For when the "what next?" feels overwhelming. A prayerful, Christian approach to decision-making and business clarity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anchor Detail View -->
+    <section id="anchor" class="detail-view">
+        <div class="detail-header">
+            <button class="back-button" onclick="showGarden()" aria-label="Return to garden">
+                ← Back to Garden
+            </button>
+            <h2 class="detail-title">The Anchor</h2>
+            <p class="detail-tagline">Finding Peace in the Storm</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Zero-Politics Sanctuary Declaration -->
+            <div class="content-card" style="background: linear-gradient(135deg, var(--linen) 0%, #F0EDE5 100%); border-left: 6px solid var(--botanical-green); text-align: center; padding: 3rem;">
+                <h3 style="margin-bottom: 1.5rem;">This is Your Renewal Space</h3>
+                <p style="font-family: var(--serif); font-size: 1.75rem; line-height: 1.6; color: var(--botanical-green); margin-bottom: 1.5rem;">
+                    No headlines. No economic anxiety. No doomscrolling.<br>
+                    Just curiosity, beauty, and human goodness.<br>
+                    You have permission to nourish your wonder.
+                </p>
+                <p style="font-size: 1.125rem; color: var(--muted-gold); font-weight: 500;">Politics-free zone: Every single day ✓</p>
+            </div>
+
+            <!-- Daily Nature Immersion -->
+            <div class="content-card">
+                <h3>Today's Moment of Beauty</h3>
+                <div style="margin: 2rem 0; border-radius: 12px; overflow: hidden; aspect-ratio: 16/9;">
+                    <img id="nature-image" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=85" alt="Peaceful nature scene" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--botanical-green); text-align: center;" id="nature-quote">"The earth has music for those who listen." — George Santayana</p>
+            </div>
+
+            <!-- Family Complexity Validation -->
+            <div class="affirmation">
+                <p class="affirmation-text" id="boundary-affirmation">Your frustration is valid. Your capacity for wonder remains.</p>
+            </div>
+
+            <!-- Curiosity & Wonder Practices -->
+            <div class="content-card">
+                <h3>Rekindling Your Curiosity</h3>
+                <p style="font-size: 1.25rem; margin-bottom: 2rem; color: #4A4A4A;">Small acts of wonder to counteract the heaviness:</p>
+                <div class="resource-list">
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">📚 Read Something Delightful</h4>
+                        <p class="resource-description">Pick up a book about something you know nothing about—ancient Rome, bird migration, the history of chocolate. Pure intellectual joy.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">🎨 Visit a Museum (Real or Virtual)</h4>
+                        <p class="resource-description">Spend 20 minutes wandering through art, history, or science. Let your mind roam free.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">🌍 Learn One New Thing Weekly</h4>
+                        <p class="resource-description">A recipe from another culture. A constellation. How bridges are built. Feed your innate curiosity.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">✨ Notice Small Beauties</h4>
+                        <p class="resource-description">The way light hits a wall. A stranger's kindness. The perfect temperature of your coffee. Micro-moments of goodness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejuvenation Quick Hits -->
+            <div class="content-card">
+                <h3>5-Minute Renewal Practices</h3>
+                <div class="resource-list">
+                    <div class="resource-item" style="background: white; cursor: pointer;" onclick="alert('🌬️ Box Breathing:\\n\\nInhale for 4 counts\\nHold for 4 counts\\nExhale for 4 counts\\nHold for 4 counts\\n\\nRepeat 4 times.')">
+                        <h4 class="resource-title">🌬️ Box Breathing Exercise</h4>
+                        <p class="resource-description">Calm your nervous system and reset your energy in moments.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">📖 Read Poetry Aloud</h4>
+                        <p class="resource-description">Mary Oliver, Rumi, or Hafiz. Let beautiful language wash over you.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">🎵 Listen to Music You Loved at 25</h4>
+                        <p class="resource-description">Reconnect with a version of yourself who had wild hope.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">🚶‍♀️ Awe Walk</h4>
+                        <p class="resource-description">5 minutes outside. Look up at trees or sky. Notice vastness beyond your worries.</p>
+                    </div>
+                    <div class="resource-item" style="background: white;">
+                        <h4 class="resource-title">☕ Savor Something Slowly</h4>
+                        <p class="resource-description">Tea, coffee, chocolate. No phone. Just presence and pleasure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hope Renewal Resources -->
+            <div class="content-card">
+                <h3>When the World Feels Heavy</h3>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <span class="resource-type">Podcast</span>
+                        <h4 class="resource-title"><a href="https://www.happinesslab.fm/" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Happiness Lab with Dr. Laurie Santos</a></h4>
+                        <p class="resource-description">Science-based joy, even when circumstances are hard. Intellectual yet deeply practical approaches to manufacturing happiness.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Book</span>
+                        <h4 class="resource-title"><a href="https://www.goodreads.com/book/show/52823856-wintering" target="_blank" style="color: var(--botanical-green); text-decoration: none;">Wintering by Katherine May</a></h4>
+                        <p class="resource-description">"Life meanders like a path through the woods. We have seasons when we flourish and seasons when the leaves fall from us." The ultimate validation for retreat and rest.</p>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-type">Watch</span>
+                        <h4 class="resource-title">
+                            <a href="https://www.hulu.com/series/the-bear-05e9f318-ff0c-447e-9bd4-8b4c99488e1f" target="_blank" style="color: var(--botanical-green); text-decoration: none;">The Bear</a> or 
+                            <a href="https://tv.apple.com/us/show/ted-lasso/umc.cmc.vtoh0mn0xn7t3c643xqonfzy" target="_blank" style="color: var(--botanical-green); text-decoration: none;">Ted Lasso</a>
+                        </h4>
+                        <p class="resource-description">The Bear: Cathartic family dynamics processing. Ted Lasso: Pure, unfiltered optimism in the face of cynicism.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation
+        function showDetail(view) {
+            document.getElementById('garden').style.display = 'none';
+            document.getElementById('navigator').classList.remove('active');
+            document.getElementById('author').classList.remove('active');
+            document.getElementById('specialist').classList.remove('active');
+            document.getElementById('anchor').classList.remove('active');
+            document.getElementById(view).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showGarden() {
+            document.getElementById('navigator').classList.remove('active');
+            document.getElementById('author').classList.remove('active');
+            document.getElementById('specialist').classList.remove('active');
+            document.getElementById('anchor').classList.remove('active');
+            document.getElementById('garden').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Countdown Timer for Navigator
+        function updateCountdown() {
+            const graduation = new Date('May 29, 2026 10:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = graduation - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Affirmations for Navigator
+        const affirmations = [
+            "Your worth isn't measured by your to-do list",
+            "Being under-appreciated doesn't diminish your value",
+            "Saying 'no' is a complete sentence",
+            "Your busyness is optional. Your peace is essential.",
+            "The empty nest reveals what was always there: YOU"
+        ];
+
+        let currentAffirmation = 0;
+        function rotateAffirmation() {
+            currentAffirmation = (currentAffirmation + 1) % affirmations.length;
+            const element = document.getElementById('affirmation-text');
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.textContent = affirmations[currentAffirmation];
+                element.style.opacity = '1';
+            }, 300);
+        }
+
+        setInterval(rotateAffirmation, 8000);
+
+        // Reflection Prompts for Navigator
+        const reflectionPrompts = [
+            "What would you do with a Saturday if no one needed you?",
+            "When did you last feel truly appreciated? What made that moment special?",
+            "If you could give your 25-year-old self one piece of advice about this season, what would it be?",
+            "What hobby or passion did you set aside that you'd like to rediscover?",
+            "What does 'success' look like in this new chapter of your life?"
+        ];
+
+        let currentReflection = 0;
+        function nextReflection() {
+            currentReflection = (currentReflection + 1) % reflectionPrompts.length;
+            const element = document.getElementById('reflection-prompt');
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.textContent = reflectionPrompts[currentReflection];
+                element.style.opacity = '1';
+            }, 300);
+        }
+
+        // Writing Prompts for Author
+        const writingPrompts = [
+            "What's one teaching strategy you pioneered that you've never seen in a textbook?",
+            "Describe the moment you realized you'd changed a student's life trajectory",
+            "What would you tell new teachers about the politics of education vs. the poetry of it?",
+            "Which educational theory from your era do you wish would come back?",
+            "Tell the story of your most challenging parent-teacher conference—and how it resolved",
+            "What did you learn about human nature from 40+ years in education?",
+            "Describe a lesson that failed spectacularly—and what it taught you"
+        ];
+
+        let currentWritingPrompt = 0;
+        function nextWritingPrompt() {
+            currentWritingPrompt = (currentWritingPrompt + 1) % writingPrompts.length;
+            const element = document.getElementById('writing-prompt');
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.textContent = writingPrompts[currentWritingPrompt];
+                element.style.opacity = '1';
+            }, 300);
+        }
+
+        // Crystallized Intelligence Focus for Author
+        const intelligenceFocus = [
+            "Pattern Recognition — You see what works because you've seen it 1,000 times",
+            "Contextual Wisdom — You know the 'why' behind the 'what'",
+            "Storytelling Mastery — Your examples span decades",
+            "Empathy Depth — You understand the student behind the behavior",
+            "Strategic Patience — You know when to push and when to wait"
+        ];
+
+        let currentIntelligence = 0;
+        function rotateIntelligence() {
+            currentIntelligence = (currentIntelligence + 1) % intelligenceFocus.length;
+            const element = document.getElementById('intelligence-focus');
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.textContent = intelligenceFocus[currentIntelligence];
+                element.style.opacity = '1';
+            }, 300);
+        }
+
+        setInterval(rotateIntelligence, 10000);
+
+        // Scripture Rotation for Specialist
+        const scriptures = [
+            '"For I know the plans I have for you... plans to prosper you and not to harm you, plans to give you hope and a future." — Jeremiah 29:11',
+            '"Whatever you do, work at it with all your heart, as working for the Lord." — Colossians 3:23',
+            '"She is clothed with strength and dignity; she can laugh at the days to come." — Proverbs 31:25',
+            '"Trust in the Lord with all your heart and lean not on your own understanding." — Proverbs 3:5-6',
+            '"Do not despise these small beginnings, for the Lord rejoices to see the work begin." — Zechariah 4:10'
+        ];
+
+        let currentScripture = 0;
+        function rotateScripture() {
+            currentScripture = (currentScripture + 1) % scriptures.length;
+            const element = document.getElementById('scripture-text');
+            if (element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.textContent = scriptures[currentScripture];
+                    element.style.opacity = '1';
+                }, 300);
+            }
+        }
+
+        setInterval(rotateScripture, 12000);
+
+        // Business Prompts for Specialist
+        const businessPrompts = [
+            "What unique gift do you bring to literacy education that only YOU can offer?",
+            "If money weren't a concern, how would you structure your reading specialist practice?",
+            "Which students or families are you called to serve? Be specific.",
+            "What's one small step you can take this week toward your business dream?",
+            "How can your faith inform the way you price your services?",
+            "What teaching moments made you feel most alive? How can you recreate those in your business?",
+            "Who are 3 people who could be your first clients or biggest champions?"
+        ];
+
+        let currentBusinessPrompt = 0;
+        function nextBusinessPrompt() {
+            currentBusinessPrompt = (currentBusinessPrompt + 1) % businessPrompts.length;
+            const element = document.getElementById('business-prompt');
+            if (element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.textContent = businessPrompts[currentBusinessPrompt];
+                    element.style.opacity = '1';
+                }, 300);
+            }
+        }
+
+        // Expertise Affirmations for Specialist
+        const expertiseAffirmations = [
+            "Decades of classroom wisdom = entrepreneurial advantage",
+            "Your reading expertise is rare and valuable",
+            "Teaching was your training. This is your calling.",
+            "You don't need permission to use your gifts",
+            "Small business. Big impact. Kingdom work."
+        ];
+
+        let currentExpertise = 0;
+        function rotateExpertise() {
+            currentExpertise = (currentExpertise + 1) % expertiseAffirmations.length;
+            const element = document.getElementById('expertise-affirmation');
+            if (element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.textContent = expertiseAffirmations[currentExpertise];
+                    element.style.opacity = '1';
+                }, 300);
+            }
+        }
+
+        setInterval(rotateExpertise, 9000);
+
+        // Nature Images and Quotes for Anchor
+        const natureContent = [
+            {
+                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=85',
+                quote: '"The earth has music for those who listen." — George Santayana'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=85',
+                quote: '"In every walk with nature, one receives far more than he seeks." — John Muir'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85',
+                quote: '"Look deep into nature, and then you will understand everything better." — Albert Einstein'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&q=85',
+                quote: '"Nature does not hurry, yet everything is accomplished." — Lao Tzu'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&q=85',
+                quote: '"To walk in nature is to witness a thousand miracles." — Mary Davis'
+            }
+        ];
+
+        let currentNature = 0;
+        function rotateNature() {
+            currentNature = (currentNature + 1) % natureContent.length;
+            const imageEl = document.getElementById('nature-image');
+            const quoteEl = document.getElementById('nature-quote');
+            if (imageEl && quoteEl) {
+                imageEl.style.opacity = '0';
+                quoteEl.style.opacity = '0';
+                setTimeout(() => {
+                    imageEl.src = natureContent[currentNature].image;
+                    quoteEl.textContent = natureContent[currentNature].quote;
+                    imageEl.style.opacity = '1';
+                    quoteEl.style.opacity = '1';
+                }, 400);
+            }
+        }
+
+        setInterval(rotateNature, 15000);
+
+        // Boundary Affirmations for Anchor
+        const boundaryAffirmations = [
+            "Your frustration is valid. Your capacity for wonder remains.",
+            "You can hold complexity and still choose curiosity.",
+            "Hope is renewable. So are you.",
+            "Your attention is precious. Spend it on beauty.",
+            "The world needs your wonder more than your worry."
+        ];
+
+        let currentBoundary = 0;
+        function rotateBoundary() {
+            currentBoundary = (currentBoundary + 1) % boundaryAffirmations.length;
+            const element = document.getElementById('boundary-affirmation');
+            if (element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.textContent = boundaryAffirmations[currentBoundary];
+                    element.style.opacity = '1';
+                }, 300);
+            }
+        }
+
+        setInterval(rotateBoundary, 10000);
+
+        // Smooth transitions for prompt changes
+        const style = document.createElement('style');
+        style.textContent = `
+            #affirmation-text, #reflection-prompt, #writing-prompt, #intelligence-focus,
+            #scripture-text, #business-prompt, #expertise-affirmation,
+            #nature-image, #nature-quote, #boundary-affirmation {
+                transition: opacity 0.4s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Keyboard navigation for cards
+        document.querySelectorAll('.greenhouse-card').forEach(card => {
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
